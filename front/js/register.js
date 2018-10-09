@@ -10,14 +10,15 @@ function getCookie(name) {
 }
 
 function ismail(obj){
-      var reg=/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-      if(!reg.test(obj.value)){
+      var myreg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if(!myreg.test(obj)){
 		return false;
       }
       return true;
     }
 
 var send_email = function () {
+
 	obj = $("#mail input").val();
 	if(ismail(obj) == false){
 		$("#mail .tips").text("请正确填写邮箱！");
