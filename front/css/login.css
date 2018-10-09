@@ -70,6 +70,36 @@ form{
 	border: 1px solid #ddd;
     margin-bottom: 32px;
 }
+#send_email .sendsms{
+    margin: auto;
+}
+#send_email email_text{
+    padding-left: 20px;
+}
+
+.sendsms{
+    padding:5px;
+    background-color:#3A71D0;
+    width:20%;
+    border:none;
+    cursor:pointer;
+    color:#fff;
+    font-weight: normal;
+    font-family: 'Nunito', sans-serif;
+    font-size:16px;
+    margin-top:4%;
+    text-transform:uppercase;
+    border-radius:8px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+}
+.sendsms:hover {
+    /*background-color:#376D29;*/
+    background-color:#4C9A39;
+    color:white;
+}
+
 .register-box label{
 	height: 52px;
     line-height: 52px;
@@ -86,6 +116,9 @@ form{
     color: #666;
     font-family: "Microsoft YaHei","Hiragino Sans GB";
 }
+
+
+
 .register-box .tips{
 	position: absolute;
     margin-top: 5px;
@@ -95,6 +128,7 @@ form{
 /*用户名*/
 .register-box .username_label{
 	word-spacing: 10px;
+
 }
 /*密码，确认密码，*/
 .register-box .other_label{
