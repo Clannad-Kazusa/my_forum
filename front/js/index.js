@@ -37,6 +37,7 @@ var user_login = function(){
             location.href = '/index.html';
         })
     .fail(function (response) {
+    	console.log()
         alert("用户名或密码错误")
     })
 };
@@ -49,21 +50,23 @@ $(function(){
 		if($(this).val().length==0){
 			$(this).parent().next("div").text("支持中文，字母，数字，'-'，'_'的多种组合");
 		}
-	})
+	});
 	$('input').eq(1).focus(function(){
 		if($(this).val().length==0){
-		    $(this).parent().next("div").text("建议使用字母、数字和符号两种以上的组合，6-20个字符");
+		    $(this).parent().next("div").text("输入你的绅士通关密码");
 		}
-	})
+	});
+	// $('input').eq(2).focus(function(){
+	// 	if($(this).val().length==0){
+	// 		$(this).parent().next("div").text("请再次输入密码");
+	// 	}
+	// })
+	
 	$('input').eq(2).focus(function(){
 		if($(this).val().length==0){
-			$(this).parent().next("div").text("请再次输入密码");
-		}
-	})
-	
-	$('input').eq(3).focus(function(){	
-		if($(this).val().length==0){
 			$(this).parent().next().next("div").text("看不清？点击图片更换验证码");
+		}else{
+			$(this).parent().next("div").text("");
 		}
 	})
 	//input各种判断
@@ -72,38 +75,39 @@ $(function(){
 		if($(this).val().length==0){
 			$(this).parent().next("div").text("");
 			$(this).parent().next("div").css("color",'#ccc');
-		}else if($(this).val().length>0 && $(this).val().length<4){
-			$(this).parent().next("div").text("长度只能在4-20个字符之间");
-			$(this).parent().next("div").css("color",'red');
-		}else if($(this).val().length>=4&& !isNaN($(this).val())){
-			$(this).parent().next("div").text("用户名不能为纯数字");
-			$(this).parent().next("div").css("color",'red');
+		}else{
+			$(this).parent().next("div").text("");
 		}
+		// else if($(this).val().length>0 && $(this).val().length<4){
+		// 	$(this).parent().next("div").text("长度只能在4-20个字符之间");
+		// 	$(this).parent().next("div").css("color",'red');
+		// }
+			// else if($(this).val().length>=4&& !isNaN($(this).val())){
+		// 	$(this).parent().next("div").text("用户名不能为纯数字");
+		// 	$(this).parent().next("div").css("color",'red');
+		// }
 	})
 	//密码
 	$('input').eq(1).blur(function(){
 		if($(this).val().length==0){
 			$(this).parent().next("div").text("");
 			$(this).parent().next("div").css("color",'#ccc');
-		}else if($(this).val().length>0 && $(this).val().length<6){
-			$(this).parent().next("div").text("长度只能在6-20个字符之间");
-			$(this).parent().next("div").css("color",'red');
 		}else{
 			$(this).parent().next("div").text("");
 		}		
 	})
 //	确认密码
-	$('input').eq(2).blur(function(){
-		if($(this).val().length==0){
-			$(this).parent().next("div").text("");
-			$(this).parent().next("div").css("color",'#ccc');
-		}else if($(this).val()!=$('input').eq(1).val()){
-			$(this).parent().next("div").text("两次密码不匹配");
-			$(this).parent().next("div").css("color",'red');
-		}else{
-			$(this).parent().next("div").text("");
-		}		
-	})
+// 	$('input').eq(2).blur(function(){
+// 		if($(this).val().length==0){
+// 			$(this).parent().next("div").text("");
+// 			$(this).parent().next("div").css("color",'#ccc');
+// 		}else if($(this).val()!=$('input').eq(1).val()){
+// 			$(this).parent().next("div").text("两次密码不匹配");
+// 			$(this).parent().next("div").css("color",'red');
+// 		}else{
+// 			$(this).parent().next("div").text("");
+// 		}
+// 	})
 
 // 	验证码
 //	 验证码刷新
@@ -119,7 +123,7 @@ $(function(){
 	code();
 	$("#code").click(code);	
 //	验证码验证
-	$('input').eq(3).blur(function(){
+	$('input').eq(2).blur(function(){
 		if($(this).val().length==0){
 			$(this).parent().next().next("div").text("");
 			$(this).parent().next().next("div").css("color",'#ccc');
@@ -132,26 +136,32 @@ $(function(){
 	})
 //	提交按钮
 	$("#submit_btn").click(function(e){		
-		for(var j=0 ;j<5;j++){
+		for(var j=0 ;j<4;j++){
 			if($('input').eq(j).val().length==0){				
 				$('input').eq(j).focus();				
-				if(j==4){
-					$('input').eq(j).parent().next().next("div").text("此处不能为空");
-					$('input').eq(j).parent().next().next("div").css("color",'red');
-					e.preventDefault();
-					return;
-				}
+				// if(j==3){
+				// 	$('input').eq(j).parent().next().next("div").text("此处不能为空");
+				// 	$('input').eq(j).parent().next().next("div").css("color",'red');
+				// 	e.preventDefault();
+				// 	return;
+				// }
 				$('input').eq(j).parent().next(".tips").text("此处不能为空");
 				$('input').eq(j).parent().next(".tips").css("color",'red');	
 				e.preventDefault();
 				return;
-			}			
+			}
+			else{
+				$('input').eq(j).parent().next(".tips").text("");
+			}
 		}
 		//协议
 		if($("#xieyi")[0].checked){
 			//向变量stuList数组添加一个数值，数值内部格式Student(name,password,tel,id)
 			//发送用户信息
 			//$("form").submit();
+			e.preventDefault();
+			user_login();
+
 		}else{						
 			$("#xieyi").next().next().next(".tips").text("请勾选协议");
 			$("#xieyi").next().next().next(".tips").css("color",'red');
