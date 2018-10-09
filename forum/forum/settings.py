@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',
     'rest_framework',
     'users.apps.UsersConfig',
     'corsheaders',
@@ -221,3 +220,5 @@ CORS_ORIGIN_WHITELIST = (
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 #允许哪些主机访问
+
+AUTH_USER_MODEL = 'users.User'
