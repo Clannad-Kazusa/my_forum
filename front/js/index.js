@@ -1,3 +1,46 @@
+var host = "http://127.0.0.1:8000/";
+function getCookie(name) {
+    var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+    return r ? r[1] : undefined;
+}
+var user_login = function(){
+    const params = {
+        "username": $("#username").val(),
+        "password": $("#password").val()
+    };
+    $.ajax({
+
+        type:"post",
+        url:host +'users/auths/',
+        contentType: "application/json",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken")
+        },
+        // 跨域
+        xhrFields: {withCredentials: true},
+        data: JSON.stringify(params),
+
+    })
+    .done(function (response) {
+
+            sessionStorage.clear();
+            localStorage.clear();
+            // localStorage.token = response.data.token;
+            if($("#brand1").val()){
+                localStorage.username = response.username;
+                localStorage.user_id = response.user_id;
+            }
+            else {
+                sessionStorage.username = response.username;
+                sessionStorage.user_id = response.user_id;
+            }
+            location.href = '/index.html';
+        })
+    .fail(function (response) {
+        alert("用户名或密码错误")
+    })
+};
+
 $(function(){
 	var stuList = getStuList();//设置传送信息：学生的集合
 	 
@@ -108,7 +151,7 @@ $(function(){
 		if($("#xieyi")[0].checked){
 			//向变量stuList数组添加一个数值，数值内部格式Student(name,password,tel,id)
 			//发送用户信息
-			$("form").submit();
+			//$("form").submit();
 		}else{						
 			$("#xieyi").next().next().next(".tips").text("请勾选协议");
 			$("#xieyi").next().next().next(".tips").css("color",'red');
@@ -134,4 +177,4 @@ $(function(){
 	    }
 	}
 
-})
+});
